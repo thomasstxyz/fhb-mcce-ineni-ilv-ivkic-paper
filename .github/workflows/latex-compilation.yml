@@ -11,4 +11,18 @@ jobs:
         with:
           root_file: conference_101719.tex
           working_directory: paper/
-          
+          compiler: pdflatex
+          args: -interaction=nonstopmode -shell-escape
+      - name: run bibtex 
+        uses: dante-ev/latex-action@latest
+        with:
+          root_file: conference_101719.aux
+          working_directory: paper/
+          compiler: bibtex
+      - name: Compile LaTeX document
+        uses: dante-ev/latex-action@latest
+        with:
+          root_file: conference_101719.tex
+          working_directory: paper/
+          compiler: pdflatex
+          args: -interaction=nonstopmode -shell-escape
