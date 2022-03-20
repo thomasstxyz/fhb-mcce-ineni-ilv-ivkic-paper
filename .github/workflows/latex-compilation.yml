@@ -19,6 +19,7 @@ jobs:
           root_file: conference_101719.aux
           working_directory: paper/
           compiler: bibtex
+          args:
       - name: Compile LaTeX document
         uses: dante-ev/latex-action@latest
         with:
