@@ -9,6 +9,6 @@ jobs:
       - name: Compile LaTeX document
         uses: dante-ev/latex-action@latest
         with:
-          root_file: paper/conference_101719.tex
+          root_file: conference_101719.tex
           working_directory: paper/
           
