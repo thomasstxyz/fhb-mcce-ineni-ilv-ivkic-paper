@@ -13,4 +13,7 @@ DevOps platform (incl. CI/CD/CD) on Kubernetes
 - service mesh for legacy applications w/out containerization
 - performance comparison: plain vs. encrypted internal K8s network
 - MicroK8s vs. K3s vs. K8s performance
-- 
+- self contained small scale HA kubernetes cluster with k3s
+- Nginx LB Performance: Native Linux vs. Docker single node vs. Docker Swarm vs. Kubernetes
+- Performance of On-Premise Active-Passive Load Balancer w/ Keepalived vs. K3s Cluster based Load Balancer
+
