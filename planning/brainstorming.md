@@ -17,3 +17,7 @@ DevOps platform (incl. CI/CD/CD) on Kubernetes
 - Nginx LB Performance: Native Linux vs. Docker single node vs. Docker Swarm vs. Kubernetes
 - Performance of On-Premise Active-Passive Load Balancer w/ Keepalived vs. K3s Cluster based Load Balancer
 
+- Mixed CPU architecture environments (ARM/Intel/AMD)
+  - Load balencing across systems with different CPU architectures
+  - Deploying programms across different architectures
+  - ???
