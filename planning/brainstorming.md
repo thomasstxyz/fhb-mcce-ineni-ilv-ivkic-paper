@@ -24,3 +24,6 @@ DevOps platform (incl. CI/CD/CD) on Kubernetes
     - Reusing old Hardware 
     - Green It
     - Using low cost hardware for Low priority/minor load tasks
+
+- Balena OS (https://www.balena.io/os/)
+  - ?
