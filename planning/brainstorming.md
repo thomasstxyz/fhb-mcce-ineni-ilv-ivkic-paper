@@ -27,3 +27,11 @@ DevOps platform (incl. CI/CD/CD) on Kubernetes
 
 - Balena OS (https://www.balena.io/os/)
   - ?
+
+- impact of service mesh & network encryption on cluster performance
+
+- design of load balancer for edge & fog computing
+  - native vs. containerized deployment  
+  - high availability
+
+- 
