@@ -30,3 +30,24 @@ chapters
   - related work
   - methodology
   - conclusion & future work
+
+## Deployment
+
+- Set the name of your EC2 key pair name
+
+Windows PowerShell:
+
+    $env:TF_VAR_ssh_key = "my_key_pair"
+
+Linux/MacOS:
+
+    export TF_VAR_ssh_key = "my_key_pair"
+
+- Apply Terraform
+
+```
+cd terraform
+terraform apply
+```
+
+This will create EC2 instances and write their public ip addresses into the file `ansible/inventory`.

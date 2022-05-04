@@ -1,0 +1,18 @@
+[all:vars]
+ansible_user='ubuntu'
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+[kube-masters]
+%{ for ip in kube-masters ~}
+${ip} kubernetes_role='master'
+%{ endfor ~}
+
+[kube-workers-x86_64]
+%{ for ip in kube-workers-x86_64 ~}
+${ip} kubernetes_role='node'
+%{ endfor ~}
+
+[kube-workers-arm64]
+%{ for ip in kube-workers-arm64 ~}
+${ip} kubernetes_role='node' docker_compose_arch=x86_64 docker_apt_arch=arm64
+%{ endfor ~}
