@@ -51,3 +51,10 @@ terraform apply
 ```
 
 This will create EC2 instances and write their public ip addresses into the file `ansible/inventory`.
+
+- Run Ansible Playbook
+
+```
+cd ansible
+ansible-playbook -i inventory main.yml
+```
