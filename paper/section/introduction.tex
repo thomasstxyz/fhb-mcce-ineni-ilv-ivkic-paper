@@ -1,8 +1,17 @@
 \section{Introduction}
 This paper deals with the topic of running containerized applications on different types of hardware with different processor architectures.
 Containers offer many advantages when it comes to running applications. They allow a high degree of independence from the base system and still offer a lower performance overhead than virtual machines. However, since they are also a form of virtualization, they are not independent of the processor architecture and must be adapted for each type of processor architecture. This is one of the problems that limits the cross-platform use of containers.
+With traditional software operation, it was often very difficult to move software from one system to a completely different system. The use of cloud technologies and especially containers can make this easier to implement. The individual containers can be moved between different devices by load balancers and are thus less dependent on the underlying hardware.
 
 This is where this paper comes in. Each of the individual processor architectures comes with its advantages and disadvantages, which can also be tailored to specific application areas. This should be used for a smart way of load balancing to potentially reduce the energy consumption of the running applications. As a result, operations should be made more efficient and operating costs should be saved.
 To answer this question, this paper will compare two processor architectures and determine their efficiency. To reduce complexity, only one type of application will be used for the test later in the paper. A large number of different applications with different hardware omissions significantly increases the complexity of the experiment and also makes it more difficult to determine the benefits of energy-efficient load balancing.
+\\
 
-
+\textbf{Significance for data centers}\\
+By reducing the energy used to operate the server infrastructure, the active operating costs for the server hardware can be lowered. However, the reduced energy consumption also creates other benefits. Much of the energy consumed by computers is converted into heat, which in the case of a larger data center must be counteracted by cooling systems. With a reduction in energy consumption and a higher performance per watt, the required cooling capacity for the overall system also decreases. This in turn also reduces the required amount of cooling systems and thus also space in the data center, which can be saved in the planning or used differently.This can result in a double energy saving as energy can be saved for both the operation and the cooling of the system at the same time.
+\\
+\\
+\textbf{Significance for private cloud and smaller companies.}
+\\
+By using a cluster with heterogeneous CPU architectures, older hardware could also be used for operation. This would be particularly interesting for smaller companies and companies that use a private cloud. Older hardware usually has a significantly poorer performance per watt than modern hardware, but it could still be used for operation during performance peaks and thus enable the purchase of less new hardware.
+Conversely, this could also enable operation where some new devices are added to the old clusters, thus also reducing power consumption.
