@@ -1,6 +1,10 @@
 \section{Related Work}
 
-\subsection{ARM architecture}
+\subsection{ARM and x86 power efficiency}
+
+In the following section, the Advanced RISC Machines architecture (ARM)
+and its relation to the common x86 architecture in regards to 
+energy and power efficiency will be discussed.
 
 \citeauthor{maqbool2015evaluating} (\citeyear{maqbool2015evaluating})
 state that in their benchmarks,
@@ -33,3 +37,21 @@ like dynamic Web server application or video transcoding, the advantages
 of ARM processors decline gradually, as the number of ARM processors needed 
 to provide comparable performance ramps up
 \cite{ou2012energy}.
+
+\citeauthor{aroca2012towards} (\citeyear{aroca2012towards}) 
+compared x86 and ARM architectures power efficiency.
+They researched web and database servers and their power usage, CPU load,
+temperature, request latencies, etc.
+The study researched the feasibility of building server infrastructure
+from low power computers. It turned out that the use of ARM based systems
+is a good choice for increased power efficiency without losing performance.
+More specifically, they show ARM based SoCs have good performance per Watt relation.
+In their tests for HTTP and SQL queries, ARM machines are 3 to 4 times
+more power efficient than x86 systems, when considering 
+requests per second per Watt relation under different load scenarios.
+However, in a floating point computation test, the ARM processor had 
+superior efficiency only for small numbers - with increasing number size,
+the performance decreased. The results showed that x86 processors are superior
+for floating point computation, when considering both performance and 
+power efficiency
+\cite{aroca2012towards}.
