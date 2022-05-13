@@ -9,6 +9,7 @@ group E
 
   - Klaus Thüringer
   - Thomas Stadler
+  - Stephan Pilwax
 
 poster
 
