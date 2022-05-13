@@ -1,3 +1,5 @@
+paper writing moved to overleaf.com !
+
 # INENI-ILV / Ivkic - scientific paper
 
 The task is to write a scientific paper about a
