@@ -1,0 +1,3 @@
+- src: geerlingguy.kubernetes
+  name: kubernetes
+  version: 7.1.1

@@ -2,11 +2,63 @@
 - hosts: all
   become: yes
 
+  pre_tasks:
+    # system update
+    - name: Run "apt-get update".
+      apt:
+        update_cache: yes
+            
+    - name: Upgrade the OS (apt-get dist-upgrade).
+      apt:
+        upgrade: dist
+        
+    # Containerd installation
+    - name: Ensure br_netfilter kernel module is enabled.
+      modprobe:
+        name: br_netfilter
+        state: present
+    - name: Ensure overlay kernel module is enabled.
+      modprobe:
+        name: overlay
+        state: present
+
+    - name: Ensure ip forwarding is enabled.
+      command: sysctl -w net.ipv4.ip_forward=1
+    - name: Ensure ip forwarding is enabled at boot.
+      lineinfile:
+        path: /etc/sysctl.conf
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      with_items:
+        - regexp: '^net.ipv4.ip_forward='
+          line: "net.ipv4.ip_forward=1"
+
+    - name: Set sysctl parameter vm.max_map_count=262144.
+      command: sysctl -w vm.max_map_count=262144
+    - name: Set sysctl parameter vm.max_map_count=262144 at boot.
+      lineinfile:
+        path: /etc/sysctl.conf
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      with_items:
+        - regexp: '^vm.max_map_count='
+          line: "vm.max_map_count=262144"
+
+    - name: Ensure containerd is installed.
+      apt:
+        name: containerd
+    # - name: Restart containerd
+    #   service:
+    #     name: containerd
+    #     state: restarted
+
   vars:
-    kubernetes_allow_pods_on_master: true
+    # kubernetes_allow_pods_on_master: true
+    kubernetes_version: '1.23'
+    kubernetes_apt_repository: "deb http://apt.kubernetes.io/ kubernetes-xenial {{ kubernetes_apt_release_channel }}"
+
 
   roles:
-    - geerlingguy.docker
-    - geerlingguy.kubernetes
+    - kubernetes
 
   tasks:

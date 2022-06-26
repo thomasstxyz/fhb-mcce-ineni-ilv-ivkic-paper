@@ -85,3 +85,23 @@ This will create EC2 instances and write their public ip addresses into the file
 cd ansible
 ansible-playbook -i inventory main.yml
 ```
+
+### Kubernetes
+
+Create a Kubernetes deployment with `nginx` as the container image for pods.
+
+    kubectl create deployment nginx-deployment --image nginx
+
+Expose the service on a `NodePort`.
+
+    kubectl expose deployment nginx-deployment --port 80 --type NodePort
+
+Scale the pods by specifying the replica count.
+
+    kubectl scale --replicas 2 deployment/nginx
+
+Add a `nodeSelector` label `"kubernetes.io/arch": "arm64"` to the nginx-deployment.
+This causes all affected pods to be rescheduled to the arm64 nodes.
+
+    kubectl patch deployment nginx-deployment -p '{"spec": {"template": {"spec": {"nodeSelector": {"kubernetes.io/arch": "arm64"}}}}}'
+
