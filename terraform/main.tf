@@ -1,9 +1,9 @@
-data "aws_ami" "ubuntu-focal-x86_64" {
+data "aws_ami" "ubuntu-jammy-x86_64" {
   most_recent = true
 
   filter {
     name = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
   }
   filter {
     name   = "virtualization-type"
@@ -12,12 +12,12 @@ data "aws_ami" "ubuntu-focal-x86_64" {
   owners = ["099720109477"] # Canonical
 }
 
-data "aws_ami" "ubuntu-focal-arm64" {
+data "aws_ami" "ubuntu-jammy-arm64" {
   most_recent = true
 
   filter {
     name = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-arm64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-arm64-server-*"]
   }
   filter {
     name   = "virtualization-type"
@@ -31,7 +31,7 @@ variable ssh_key {
 }
 
 resource "aws_instance" "kube-master" {
-  ami = data.aws_ami.ubuntu-focal-x86_64.id
+  ami = data.aws_ami.ubuntu-jammy-x86_64.id
   instance_type = "t3.medium"
 
   vpc_security_group_ids = [
@@ -52,7 +52,7 @@ resource "aws_instance" "kube-master" {
 }
 
 resource "aws_instance" "kube-worker-x86_64" {
-  ami = data.aws_ami.ubuntu-focal-x86_64.id
+  ami = data.aws_ami.ubuntu-jammy-x86_64.id
   instance_type = "t3.medium"
 
   count = 1
@@ -75,7 +75,7 @@ resource "aws_instance" "kube-worker-x86_64" {
 }
 
 resource "aws_instance" "kube-worker-arm64" {
-  ami = data.aws_ami.ubuntu-focal-arm64.id
+  ami = data.aws_ami.ubuntu-jammy-arm64.id
   instance_type = "a1.large"
 
   count = 1
