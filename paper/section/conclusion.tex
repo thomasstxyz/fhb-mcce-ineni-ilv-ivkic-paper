@@ -1,6 +1,23 @@
 \section{Conclusion}
 % Conclusion
-This work gave an overview of possible application areas and advantages of cleverly used heterogeneous clusters.  However, many of the points raised still need to be proven and the current possibilities of implementing a heterogeneous cluster need to be evaluated. Literature research has shown that in some use cases ARM processor types offer a clear advantage in processing efficiency. 
-For the description and investigation of heterogeneous clusters, the number of processor types was reduced to ARM and x86 based processors for reasons of complexity. The x86 architecture was used because of its frequent use in data centers and its general widespread use. The ARM architecture was chosen as the second representative. At the time of writing, this architecture is enjoying increasing popularity in data centers. As a result, many cloud providers offer both architectures to users, who can choose the hardware they require.
-In order to investigate heterogeneous clusters further and in more detail, two experiments were presented in this paper to investigate the operation of heterogeneous clusters, and potential energy savings. 
-The structure and the goal of the investigations were described in this document and will be implemented and documented in a subsequent paper so that conclusions can be drawn from the results about the usefulness of using heterogeneous clusters with today's technology.
+This paper gives an overview of possible application areas and advantages of cleverly used heterogeneous clusters.  
+However, many of the points raised still need to be discussed further, 
+and the current possibilities of implementing a heterogeneous cluster need to be evaluated in a real-world scenario.
+
+The results have shown significant differences in efficiency in the tested use cases in the experiment.
+Where in the 7-Zip benchmark the difference in efficiency was by a factor of 2.2, the difference in the Sysbench benchmark was more than 11 times higher.
+For the interpretation of the results, this means that certain types of software can be run significantly more efficiently if the right hardware is chosen. 
+This means having the ability to choose which system an application runs can decrease the overall power consumption.
+
+An important thing to note about the experiment is the less than optimal hardware that was used for the benchmarks.
+The comparison of a single-board computer with a full desktop PC is not completely representative of a comparison between two processor architectures. Also, the additional hardware in a desktop PC may introduce influences and disturbing
+factors during the experiment.
+
+To further investigate the operation of
+heterogeneous clusters in more detail, 
+a prototype is presented in the future work section of this paper.
+The structure and goal of the investigations were described
+in this paper and can be implemented and documented 
+in a subsequent paper so that conclusions can be drawn from
+the results about the usefulness of using heterogeneous
+clusters with today's technology.

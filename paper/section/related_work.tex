@@ -1,38 +1,58 @@
 \section{Related Work}
 
+
 \subsection {CPU Architectures}
-The Central Processing Unit (CPU) is the device's "brain," but it's not that smart. A CPU can only function if it is given extremely particular instructions, known as the instruction set, that tell it to move data between registers and memory or execute a computation using a certain execution unit (such as multiplication or subtraction). Distinct instructions are required by different CPU hardware blocks, which tend to scale up with more complex and powerful CPUs. \cite{Publikat0:online}
-Computer applications are not written in CPU instructions. With today's large cross-platform apps running on a variety of chips, that would be too much of a problem. Rather, apps written in higher-level programming languages (such as Java or C ++) are compiled for specific instruction sets in order to run on Arm, x86, and other CPUs. Within the CPU, these instructions are decoded into microcoding operations that require silicon space and power. If you want the lowest performance CPU, keeping the instruction set simple is critical. However, higher performance can be achieved at the expense of power by using more complex hardware and instructions that perform multiple operations simultaneously. This is a key distinction between Arm and x86, as well as their respective approaches to CPU design in the past.\cite{CPUdesig69:online}
-RISC (Reduced Instruction Set Computing) is used by Arm, whereas CISC (Complex Instruction Set Computing) is used by Intel (x86). Arm's CPU instructions are atomic, with a close relationship between the number of instructions and the number of micro-operations. By contrast, CISC has a much larger set of instructions, many of which perform multiple tasks (optimized math and data movement).\cite{RISCvers27:online} When decoding these complex instructions, this results in better performance but higher power consumption. The distinctions between RISC and CISC are becoming increasingly blurred as each borrows ideas from the other and a wide range of CPU cores are based on architectural variations. Furthermore, because Arm's architecture can be customized, partners like Apple can add their own more complex instructions \cite{ProQuest63:online}.
-However, it is important to remember that a CPU architecture is defined by the relationship between instructions and processor hardware design. This allows CPU architectures to be tailored to specific needs, such as extreme number crunching, low power consumption, or small silicon footprint. When it comes to CPUs, this is a significant difference between Arm and x86, as the former is based on a lower-power instruction set and hardware \cite{Heteroge64:online}.
+The Central Processing Unit (CPU) is the device's "brain" but it is not that smart.
+A CPU can only function if it is given extremely particular instructions, 
+known as the instruction set, 
+that tell it to move data between registers and memory or execute a computation using a certain execution unit 
+(such as multiplication or subtraction). 
+Distinct instructions are required by different CPU hardware blocks, which tend to scale up with more complex and powerful CPUs 
+\cite{Publikat0:online}.
+Computer applications are not written in CPU instructions. 
+With today's large cross-platform apps running on a variety of chips, that would be too much of a problem. 
+Rather, apps are written in higher-level programming languages (such as Java or C ++) 
+which are compiled for specific instruction sets to run on arm64, amd64, and other CPUs. 
+Within the CPU, these instructions are decoded into microcode operations that require silicon space and power. 
+For low-performance CPUs, keeping the instruction set simple is critical. 
+However, higher performance can be achieved at the expense of power by using more complex hardware and 
+instructions that perform multiple operations simultaneously. 
+This is a key distinction between Arm and x86, as well as their respective approaches to CPU design in the past\cite{CPUdesig69:online}.
+RISC (Reduced Instruction Set Computing) is used by ARM,
+whereas CISC (Complex Instruction Set Computing) is used by Intel (x86). 
+Arm's CPU instructions are atomic, with a close relationship between the number of instructions and the number of micro-operations. By contrast, CISC has a much larger set of instructions, 
+many of which perform multiple tasks (optimized math and data movement)
+\cite{RISCvers27:online}.
+When decoding these complex instructions, this results in better performance but higher power consumption. 
+The distinctions between RISC and CISC are becoming increasingly blurred as each borrows ideas from the other 
+and a wide range of CPU cores is based on architectural variations. 
+Furthermore, because Arm's architecture can be customized, partners like Apple can add their own more complex instructions
+\cite{ProQuest63:online}.
+When decoding these complex instructions result in better performance but higher power consumption. 
+The distinctions between RISC and CISC are becoming increasingly blurred as each borrows ideas from the other 
+and a wide range of CPU cores is based on architectural variations. 
+Furthermore, because Arm's architecture can be customized, partners like Apple can add their own more complex instructions 
+\cite{Heteroge64:online}.
 
 
-\subsection{ARM and x86 power efficiency}
 
-In the following section, the Advanced RISC Machines architecture (ARM)
-and its relation to the common x86 architecture in regards to 
-energy and power efficiency will be discussed.
+
+
+\subsection{Energy efficiency of ARM and x86 processors}
 
 \citeauthor{maqbool2015evaluating} \cite{maqbool2015evaluating}
-state that in their benchmarks,
-ARM performed four times better on single-core workloads and
-2.6 times better on four cores, 
-regarding performance to power ratio.
-On memory-intensive database transactions, however
-x86 performed 12\% better for multithreaded query processing
+state that in their benchmarks, ARM performed four times better on single-core workloads and
+2.6 times better on four cores, regarding performance to power ratio.
+On memory-intensive database transactions, however, x86 performed 12\% better for multithreaded query processing
 \cite{maqbool2015evaluating}.
 
 \citeauthor{ou2012energy} \cite{ou2012energy} 
-analyzed ARM and Intel CPU cluster computing 
-in regards to energy efficiency. They measured different applications
-like Web servers, in-memory databases, and video transcoding. These
-applications performed more energy-efficient in the ARM cluster than 
-in the Intel workstation. Multiple ARM processors are needed to 
-achieve performance like the Intel processor. 
-The energy-efficiency ratio of the
-ARM cluster against the Intel workstation varies from 2.6  to 9.5 in
-in-memory database workload, to 1.3 in Web server workload, and 
-1.21 in video transcoding. 
+analyzed ARM and Intel CPU cluster computing in regards to energy efficiency. 
+They measured different applications like Web servers, in-memory databases, and video transcoding. 
+These applications performed more energy-efficient in the ARM cluster than in the Intel workstation. 
+Multiple ARM processors are needed to achieve performance like the Intel processor. 
+The energy-efficiency ratio of the ARM cluster against the Intel workstation varies from 2.6  to 9.5 in
+in-memory database workload, to 1.3 in Web server workload, and 1.21 in video transcoding. 
 \citeauthor{ou2012energy} \cite{ou2012energy} also state that the Intel processor
 uses a dynamic voltage and frequency scaling technique, which 
 causes the power consumption to not be linear to the CPU utilization level.
@@ -46,81 +66,171 @@ of ARM processors decline gradually, as the number of ARM processors needed
 to provide comparable performance ramps up
 \cite{ou2012energy}.
 
-\citeauthor{aroca2012towards} \cite{aroca2012towards}
-compared x86 and ARM architectures power efficiency.
-They researched web and database servers and their power usage, CPU load,
-temperature, request latencies, etc.
-The study researched the feasibility of building server infrastructure
-from low power computers. It turned out that the use of ARM based systems
-is a good choice for increased power efficiency without losing performance.
-More specifically, they show ARM based SoCs have good performance per Watt relation.
-In their tests for HTTP and SQL queries, ARM machines are 3 to 4 times
-more power efficient than x86 systems, when considering 
-requests per second per Watt relation under different load scenarios.
+\citeauthor{aroca2012towards} \cite{aroca2012towards} compared x86 and ARM architectures power efficiency.
+They researched web and database servers and their power usage, CPU load, temperature, request latencies, etc.
+The study researched the feasibility of building server infrastructure from low power computers. 
+It turned out that the use of ARM based systems is a good choice for increased power efficiency without losing performance.
+More specifically, they show ARM based Systems on a Chip (SoCs) have good performance per Watt relation.
+In their tests for HTTP and SQL queries, ARM machines are 3 to 4 timesmore power efficient than x86 systems, 
+when considering requests per second per Watt relation under different load scenarios.
 However, in a floating point computation test, the ARM processor had 
-superior efficiency only for small numbers - with increasing number size,
-the performance decreased. The results showed that x86 processors are superior
-for floating point computation, when considering both performance and 
-power efficiency
+superior efficiency only for small numbers - with increasing number size, the performance decreased. 
+The results showed that x86 processors are superior for floating point computation, 
+when considering both performance and power efficiency
 \cite{aroca2012towards}.
 
 
 \subsection{Benchmarks}
-
-
-There are several ways to evaluate the relative performance of CPUs. A CPU with more cores and a higher clock frequency will usually be able to perform better than others from the same product generation.
-But comparing two different processor architectures this way is not possible. For this reason CPU Benchmarks are used. 
-Benchmarks allow an easy comparison between several CPUs by ranking their performance in a standardized series of tests. They can be used for in many use cases, like building a new service in the cloud environment. Benchmark results can provide information about which processor is better suited to the application. In the case of this paper, which processor consumes less power for the tested application. 
-CPU evaluations often rely on a number of different benchmark tests to evaluate CPUs. Those tests can be divided into two categories, synthetic and practice-oriented tests \cite{Thebench76:online}.
-
-\noindent \textbf{Synthetic benchmarks}
+There are several ways to evaluate the relative performance of CPUs. 
+A CPU with more cores and a higher clock frequency will usually be able to perform better 
+than others from the same product generation.
+But comparing two different processor architectures this way is not possible. 
+For this reason CPU Benchmarks are used. 
+Benchmarks allow an easy comparison between several CPUs by ranking their performance in a standardized series of tests. 
+They can be used for in many use cases, like building a new service in the cloud environment. 
+Benchmark results can provide information about which processor is better suited to the application. 
+In the case of this paper, which processor consumes less power for the tested application. 
+CPU evaluations often rely on a number of different benchmark tests to evaluate CPUs.
+Those tests can be divided into the following two categories, namely synthetic benchmarks, and practice oriented tests
+\cite{Thebench76:online}.
 
 Synthetic benchmarks can be used for a quick and general comparison of processors. 
-Synthetic benchmark tests simulate many different tasks like  3D rendering, file compression, web browsing, floating point calculations, and many other workloads. After measuring the CPU performance levels on each task, the numbers are weighted and combined into a single result, which represents the capability of the CPU.
-The results are called synthetic because the tests used to calculate them were simulated. Instead of testing the performance of the processor in a specific application such as a 3D creativity suite or a game, they simulate the workload that an application sends to the CPU under different circumstances.
-Accordingly, synthetic benchmarks cannot accurately predict actual performance. Synthetic scores are widely used to compare the relative performance of CPUs \cite{Microsof4:online}.
+They simulate many different tasks like  
+3D rendering, file compression, web browsing, floating-point calculations, and many other workloads. 
+After measuring the CPU performance levels on each task, the numbers are weighted and combined into a single result, 
+which represents the capability of the CPU.
+The results are called synthetic because the tests used to calculate them were simulated. 
+Instead of testing the performance of the processor in a specific application such as a 3D creativity suite or a game, 
+they simulate the workload that an application sends to the CPU under different circumstances.
+Accordingly, synthetic benchmarks cannot accurately predict actual performance. 
+Synthetic scores are widely used to compare the relative performance of CPUs 
+\cite{Microsof4:online}.
 
-Here are some examples of synthetic benchmarks and their workload.
+Here are some examples of synthetic benchmarks and their workload:
 \begin{itemize}
 \item PassMark performs heavy mathematical calculations that stress the CPU's performance on compression, encryption, and physical-related tasks.
 \item PCMark 10 rates the system based on how well it can handle business operations and everyday productivity tasks.
 \end{itemize} 
 
-\noindent \textbf{Practice oriented tests}
 
-Real-world benchmarks use realistic benchmark tests when you have specific plans for your PC and need accurate performance data for a particular application.
-These tests are performed by giving real programs large workloads and then measuring the time to completion. This results in a reliable prediction of system performance using the same settings.
+On the other hand, real-world benchmarks use realistic benchmark tests when you have specific plans
+for your Personal Computer (PC) and need accurate performance data for a particular application.
+These tests are performed by giving real programs large workloads and then measuring the time to completion. 
+This results in a reliable prediction of system performance using the same settings.
 
 Commonly used applications for realistic benchmark tests include:
 7-Zip to measure the CPU's data compression and decompression speed.
-Blender to measure the 3D rendering speeds of a CPU.
+Blender to measure the 3 dimensional (3D) rendering speeds of a CPU.
 Handbrake to measure a CPU's video encoding speeds.
-In-game benchmark tools are another approach of a real-world test. These are non-interactive scenes that appear in some games. Use in-game benchmarks to check the CPU's effect on FPS (frames per second) during traditional gameplay as well as streaming.
-These tests provide a repeatable testing environment. As long as the system configuration remains the same, the benchmarks will show an accurate indication of power consumption. 
-Interpreting your benchmark statistics
-Now that we've learned about the different types of benchmark tests, let's look at how you'll be able to interpret the results \cite{Anovervi34:online}.
+In-game benchmark tools are another approach to a real-world test. 
+These are non-interactive scenes that appear in some games. 
+Use in-game benchmarks to check the CPU's effect on frames per second (FPS) during traditional gameplay as well as streaming.
+These tests provide a repeatable testing environment. 
+As long as the system configuration remains the same, the benchmarks will show an accurate indication of power consumption
+\cite{Anovervi34:online}.
 
-For synthetic tests, the scoring system varies by program. The assessments are often measured in ``points'' (or other program-specific terms). A powerful CPU scores higher, or more points, although it should be noted that different CPUs are designed for different purposes.
-By comparison, real-world tests use a number of different measurements.
-Dropped frames: Streaming benchmark tests count all frames dropped during video encoding. For viewers, this sometimes results in a jumpy frame change. A lower \% of dropped frames is desirable.
-FPS (for video): In video encoding tests, FPS counts the number of frames your CPU encodes per second. Higher is better.
-FPS (for gaming): In in-game benchmark tests, FPS count the number of frames rendered per second. A higher FPS rate usually means more sophisticated gameplay. (However, frame time should also be considered).
-GB/s (gigabytes per second): In encryption tests, GB/s measure data throughput. Higher is better.
-MIPS (million instructions per second): In data compression tests, MIPS measures the number of lower-level instructions executed per second by the CPU. Higher is better, but the value should be taken with a grain of salt when comparing different generations of CPUs, as the execution of instructions may well be different.
-Rendering Time: In rendering benchmark tests, rendering time measures the speed at which the CPU renders the geometry, lighting, and surface textures in a 3D scene. Shorter times are better.
+For synthetic tests, the scoring system varies by program. 
+The assessments are often measured in "points" (or other program-specific terms). 
+A powerful CPU scores higher, or has more points, although it should be noted that different CPUs are designed for different purposes.
+By comparison, real-world tests use a number of different measurements:
+
+\begin{itemize}
+    \item Dropped frames: Streaming benchmark tests count all frames dropped during video encoding. 
+    For viewers, this sometimes results in a jumpy frame change. 
+    A lower \% of dropped frames is desirable.
+    \item FPS (for video): In video encoding tests, FPS counts the number of frames your CPU encodes per second. Higher is better.
+    \item FPS (for gaming): In in-game benchmark tests, FPS count the number of frames rendered per second. 
+    A higher FPS rate usually means more sophisticated gameplay. However, frame time should also be considered.
+    \item GB/s (gigabytes per second): In encryption tests, GB/s measure data throughput. Higher is better.
+    \item MIPS (million instructions per second): In data compression tests, 
+    MIPS measures the number of lower-level instructions executed per second by the CPU. 
+    Higher is better, but the value should be taken with a grain of salt when comparing different generations of CPUs, 
+    as the execution of instructions may well be different.
+    \item Rendering Time: In rendering benchmark tests, rendering time measures the speed at which the CPU renders the geometry,
+    lighting, and surface textures in a 3D scene. Shorter times are better.
+\end{itemize}
+
+
+
+
+
+
+
 Because some processors perform highly in certain CPU benchmark tests, multiple benchmarks should be examined rather than relying on a single value.
-Synthetic and real benchmarks can complement each other. Check synthetic benchmarks for an overview of the strengths of certain CPUs. With real-world benchmarks, you're more likely to find out how the CPU will perform in day-to-day use. With both, you'll get a full view of a CPU's capabilities.
-When selecting a CPU for gaming, for example, the benchmark scores can be used to evaluate the overall performance level of the CPU. Once you've found the candidates you're considering, look for their FPS and frame times in recently released titles.
+Synthetic and real benchmarks can complement each other. 
+Check synthetic benchmarks for an overview of the strengths of certain CPUs. 
+With real-world benchmarks, you're more likely to find out how the CPU will perform in day-to-day use. 
+With both, you'll get a full view of a CPU's capabilities.
+When selecting a CPU for gaming, for example, the benchmark scores can be used to evaluate the overall performance level of the CPU. Once the candidates are found  their FPS and frame times in recently released titles can be looked up.
 
-Single-core versus multi-core results
+%Singlecore VS Multicore
 Benchmarks are often divided into single-core and multi-core scores.
 Single-core scores are more important for games and applications with a low thread count because they use a single core to process many, but not all, instructions \cite{Fromsing30:online}.
-Multi-core values are more important for games and applications with a high thread count, because they distribute their instructions over several cores \cite{1110353543:online}.
+Multi-core values are more important for software which can take advantage of higher thread counts, because they distribute their instructions over several cores \cite{1110353543:online}.
 
-System configurations:
+%System configurations
 Although CPU benchmarks are important, every component plays a role in determining system performance.
-CPU: Games with complex AI, physical elements, and graphical post-processing tend to be more CPU intensive and may benefit from a CPU with a higher core/thread count and clock speed.
-GPU: In addition to CPU benchmarks, check GPU benchmarks when examining your system's gaming performance, as some games rely more heavily on the GPU. Dedicated graphics cards, for example, can handle most of the 3D rendering work.
-Memory and data storage. These components can affect system responsiveness and load times.
-Software: regardless of the system configuration, performance varies from game to game. That's just the way it is. It has to do with the way the game is programmed. Also, the graphical settings and resolution can affect performance.
+The CPU is responsible for Games with complex AI, physical elements, and graphical post-processing that tend to be more CPU intensive.
+Those tasks may benefit from a CPU with a higher core and thread count and also a higher clock speed.
+In addition to CPU benchmarks, the examination of GPU benchmarks can also be important tor evaluating the performance.
+Because some programs rely more heavily on the GPU power.
+Dedicated graphics cards, for example, can handle most of the 3D rendering work.
+The used memory and data storage can also affect system responsiveness and load times which contributes to the performance of the whole system.
 
+
+
+
+
+\subsection{ARM Big Little Architecture}
+%What is Arm Big Little
+The ARM Big Little architecture was developed for applications in areas where energy efficiency is very important. 
+The architecture combines weaker energy-saving cores with more powerful, but less efficient cores in one CPU. 
+Processes can then be assigned to one of the two core types depending on the application. 
+According to the developer, ARM Holding, up to 70 \% of the energy consumption can be saved in some use cases
+\cite{bigLITTL50:online}. 
+%Explanation of performance and efficiency cores 
+CPUs that are designed for the highest possible performance are different from CPUs that are designed to save power. 
+When very powerful processor cores operate at low clock speeds, they still consume a lot of power. These tasks could be taken over by weaker processor cores, which can perform these tasks with less power consumption. 
+These CPU cores can be made more efficient by many factors. 
+For example, the number of transistors and the cache can be reduced or the CPU pipeline can be simplified
+\cite{TenThing97:online}.
+
+Depending on the use case there are a few different models of how the two types of processor cores can be combined with each other. 
+
+\begin{itemize}
+%Clustered Switching model
+\item
+There are also different possible arrangements of both core types. 
+With the cluster switching method, one cluster of each core type is created.
+The process scheduler can only run processes on one of the clusters at the same time. 
+This means if one process changes its needed performance status the whole cluster has to be switched. 
+This means all processes have to be switched over to the other cluster.
+
+%In Kernel Switching model
+\item 
+The method of using In Kernel Switcher (IKS) tries to make all processing cores more independent from one another.
+In this model, one performance core is bundled with one efficiency core which is then called virtual cores.
+During operation, only one of both cores is working. 
+Depending on the currently needed performance the processor type of each virtual core can be switched independently from other virtual cores.
+
+%Heterogeneous multi-processing model
+\item  
+The most flexible and most powerful model is heterogeneous multi-processing.
+Compared to both previously explained models this model allows to run on all processing cores at the same time 
+and thus provide the highest processing power of the mentioned models. 
+This is achieved by running all processing cores in parallel.
+Tasks are then scheduled by their needed performance to the matching cores
+\cite{bigLITTL43:online}.
+
+\end{itemize}
+The advancements of processors by using Arm Big Little-based Processors have brought significant advancements in power savings. 
+With smartphones being one of the greatest users of this technology the battery life has increased a lot using this technology
+\cite{bigLITTL50:online}. 
+The Use of ARM Big Little is restricted to just trying to run one single processor as efficient as possible, 
+which makes it only relevant for the application in fields that don't need more than one processor.
+By scaling the idea behind ARM Big Little up to fit for a larger data center a lot of energy could be saved. 
+In Comparison, to ARM Big Little the scheduling in a data center would happen between different machines with different capabilities instead of just single cores. 
+By using multiple processors instead of just multiple cores the problem of compatibility arises. 
+The cores of one CPU are specifically built to work and function together 
+whereas different CPU Architectures are not created with this functionality in mind.
+This field of application is to be researched in this paper.

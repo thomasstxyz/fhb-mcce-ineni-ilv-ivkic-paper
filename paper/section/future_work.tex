@@ -1,20 +1,135 @@
-\section{Future Work and discussion}
+\section{Future Work}
+The experiment results suggest
+significant benefits from leveraging
+the ARM processor architecture for computing.
+In use cases, it is possible for ARM-based processors to achieve multiples of the performance achieved by an x86 CPU 
+while consuming the same amount of energy.
 
-\subsection{Prototype heterogeneous cluster }
-For the research of the difficulties and the feasibility of the operation of a software on different processor architectures a prototype is to be created and clod technologies are to use. Thus, for the construction of the infrastructure, a hererogenic Kubernetes cluster will be created, which contains both x86 and ARM processors. In the experiment itself it shall be shown that it is possible to run the same image of a program on both CPU architectures and to start containers created with the image alternately on both devices. 
+As an add-on to this research paper,
+as well as for possible future work in
+this field,
+A prototype framework
+for running containers in heterogeneous clusters is created.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=.95\linewidth]{fig/experiment_k8s_cluster_x86_arm_v1.png}
-	\caption{Prototype heterogeneous Kubernetes cluster.}
-	\label{fig:prototypeKubeCluster}	
+
+\subsection{Prototype heterogeneous cluster}
+%In order to evaluate the difficulties and the feasibility of the operation of a software on different processor architectures, a prototype is created with the use of cloud technologies. 
+
+The prototype presents a guideline for running containers in a heterogeneous Kubernetes 
+\cite{kubernetesIo} cluster,
+which contains worker nodes with the x86 architecture, as well as the ARM architecture.
+A graphical representation of this architecture design can be seen in Fig. 
+\ref{fig:prototypeKubeCluster}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.95\linewidth]{fig/experiment_k8s_cluster_x86_arm_v1.png}
+    \caption{Prototype heterogeneous Kubernetes cluster.}
+    \label{fig:prototypeKubeCluster}
 \end{figure}
 
-The AWS Cloud will be used for the test setup. This offers users the choice of the two different processor types, including Arm and x86, which are to be used for the test. The image to be tested is nginx. This is already offered by the manufacturer in several versions for different CPU architectures, which eliminates the step of creating a separate test image. The web server nginx is also an excellent test example, since web servers are one of the most frequently used software on servers.
+The virtual machines are provisioned on Amazon AWS's Elastic Compute Cloud (EC2) service 
+\cite{ec2AmazonAwsWebsite}.
+The AWS Marketplace 
+\cite{marketplaceAmazonAwsWebsite}
+offers operating system images for x86 and ARM, as well as many other machine types. 
+For the prototype setup, the following Ubuntu Linux images from 
+Canonical
+\cite{canonicalMarketplaceAmazonAwsWebsite}
+are used for x86 resp. ARM nodes:
 
-\subsection{Bench marking and calculating performance per watt on different workloads}
-Since the first part of the test setup is to be implemented in the cloud of a provider for hardware and compatibility reasons, it is not possible to obtain data on the power consumption of the systems. Therefore, it was decided to set up a second series of tests with devices with the same CPU types, in which the computing power of devices is to be determined. While measuring the computing power by means of benchmarks, the energy consumption of the hardware is to be measured. The two values obtained can then be used to calculate the ratio of the computing power to the energy consumed in the process. the resulting ratios of the two architectures can then be used to compare the processor types with each other and make comparisons. The types of benchmarks performed can then be used to draw conclusions about which hardware can implement a more energy-efficient operation of a software.
+\begin{itemize}
+    \item Ubuntu 22 (Ubuntu 22.04 LTS) 
+    \cite{ubuntu22amd64MarketplaceAmazonAwsWebsite}
+    \item Ubuntu 22 (ARM) (Ubuntu 22.04 LTS) 
+    \cite{ubuntu22arm64MarketplaceAmazonAwsWebsite}
+\end{itemize}
 
-\subsection{Bringing the experiments together}
-The first experiment acts as a proof of concept of working heterogeneous CPU Clusters with current technology and to point out the limitations that occurred during the creation of the prototype. With the second Experiment measurable data was created that simulates a real life scenario. The used hardware used in this test represents hardware that might already be found  in a company. The created data during the experiment could later be used to create a power saving plan to decide what application should run on which hardware for the most power efficient use.
-Creating a dedicated power saving plan and applying it to the created prototype of experiment one is not the goal of the following paper building up on this one. The goal of this paper and paper building up on it is limited to the demonstration of a working prototype of a cluster with heterogeneous CPU's and showing potential real world benefits of choosing the best suited CPU for a certain task.
+The EC2 machines are joined together with kubeadm 
+\cite{kubeadmKubernetes} 
+to form a Kubernetes cluster.
+
+Kubernetes itself automatically assigns the label "kubernetes.io/arch" to nodes 
+with the value corresponding to the processor architecture.
+
+\begin{itemize}
+    \item "amd64", which equates to x86 architecture with a 64-bit instruction set.
+    \item "arm64", which equates to ARM architecture with a 64-bit instruction set.
+\end{itemize}
+
+The container image nginx 
+\cite{nginxDockerHub} 
+from Docker Hub is used for demonstration. 
+The image is offered by the maintainer in several versions for different processor architectures.
+For the prototype setup, the images 
+"linux/amd64" \cite{amd64ImageNginxDockerHub}
+and
+"linux/arm64/v8" \cite{arm64v8ImageNginxDockerHub}
+in version 1.23.0
+are used.
+
+The specific images for the different processor architectures
+are transparently pulled by Kubernetes to the nodes
+when specifying "nginx:1.23.0".
+The user does not need to specify the architecture explicitly.
+
+Kubernetes pods can be constrained to specific nodes
+based on node labels
+with the concept of node affinity.
+There are two types of node affinity:
+
+\begin{itemize}
+    \item \textbf{requiredDuringSchedulingIgnoredDuringExecution}: The scheduler can not schedule the Pod unless the rule is met.
+    \item \textbf{preferredDuringSchedulingIgnoredDuringExecution}: The scheduler tries to find a node that meets the rule. If a matching node is not available, the scheduler still schedules the Pod.
+\end{itemize}
+
+The "requiredDuringSchedulingIgnoredDuringExecution"
+affinity type can be used to constrain pods
+strictly to specific nodes.
+
+With the latter affinity type
+"preferredDuringSchedulingIgnoredDuringExecution",
+the key "kubernetes.io/arch" can be set to match "amd64".
+This expression can be supplied a weight of e.g. "1",
+while an accompanying expression can be set to match "arm64"
+with a weight of e.g. "50". This results in pods
+being scheduled first to arm64 nodes whenever possible,
+since the weight is higher. An example configuration
+in YAML format can be seen below. Long lines are
+shortened and marked with "[...]".
+
+\begin{verbatim}
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnor[...]
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/os
+          operator: In
+          values:
+          - linux
+    preferredDuringSchedulingIgnor[...]
+    - weight: 1
+      preference:
+        matchExpressions:
+        - key: kubernetes.io/arch
+          operator: In
+          values:
+          - amd64
+    - weight: 50
+      preference:
+        matchExpressions:
+        - key: kubernetes.io/arch
+          operator: In
+          values:
+          - arm64
+\end{verbatim}
+
+The prototype framework introduced in this section
+may be extended by other researchers
+in future work. We propose the following possible topics:
+
+\begin{itemize}
+    \item Power efficiency driven workload scheduling in cluster computing.
+    \item Dynamic pod scheduling and node selection in Kubernetes, based on key performance indicators and other metrics.
+\end{itemize}
