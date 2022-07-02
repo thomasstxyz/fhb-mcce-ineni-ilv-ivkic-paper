@@ -34,6 +34,8 @@ resource "aws_instance" "kube-master" {
   ami = data.aws_ami.ubuntu-jammy-x86_64.id
   instance_type = "t3.medium"
 
+  count = 3
+
   vpc_security_group_ids = [
     aws_security_group.egress-all-all.id,
     aws_security_group.ingress-all-all.id,
@@ -47,7 +49,7 @@ resource "aws_instance" "kube-master" {
   key_name = "${var.ssh_key}"
 
   tags = {
-    Name = "kube-master"
+    Name = "kube-master-${count.index}"
   }
 }
 
@@ -55,7 +57,7 @@ resource "aws_instance" "kube-worker-x86_64" {
   ami = data.aws_ami.ubuntu-jammy-x86_64.id
   instance_type = "t3.medium"
 
-  count = 1
+  count = 2
 
   vpc_security_group_ids = [
     aws_security_group.egress-all-all.id,
@@ -65,7 +67,7 @@ resource "aws_instance" "kube-worker-x86_64" {
     aws_security_group.ingress-all-kubeapi.id,
   ]
 
-  user_data = templatefile("${path.module}/templates/init_kube-worker.tftpl", { KUBE_APISERVER_URL = aws_instance.kube-master.private_ip })
+  user_data = templatefile("${path.module}/templates/init_kube-worker.tftpl", { PLACEHOLDER = "placeholder" })
 
   key_name = "${var.ssh_key}"
 
@@ -78,7 +80,7 @@ resource "aws_instance" "kube-worker-arm64" {
   ami = data.aws_ami.ubuntu-jammy-arm64.id
   instance_type = "a1.large"
 
-  count = 1
+  count = 3
 
   vpc_security_group_ids = [
     aws_security_group.egress-all-all.id,
@@ -88,7 +90,7 @@ resource "aws_instance" "kube-worker-arm64" {
     aws_security_group.ingress-all-kubeapi.id,
   ]
 
-  user_data = templatefile("${path.module}/templates/init_kube-worker.tftpl", { KUBE_APISERVER_URL = aws_instance.kube-master.private_ip })
+  user_data = templatefile("${path.module}/templates/init_kube-worker.tftpl", { PLACEHOLDER = "placeholder" })
 
   key_name = "${var.ssh_key}"
 
